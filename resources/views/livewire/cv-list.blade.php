@@ -22,17 +22,25 @@
                     </div>
 
                     <div class="flex gap-2">
+                        <!-- Botón para Ver CV -->
                         <a href="{{ route('cv.show', $cv->id) }}"
                            class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600">
-                            Ver CV
+                            👀 Ver CV
                         </a>
 
+                        <!-- Botón para Copiar Enlace (si es público) -->
                         @if ($cv->publico)
                             <button onclick="copiarEnlace('{{ route('cv.show', $cv->id) }}')"
                                 class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
                                 📋 Copiar Enlace
                             </button>
                         @endif
+
+                        <!-- Botón para Editar CV -->
+                        <a href="{{ route('cv.edit', $cv->id) }}"
+                           class="px-4 py-2 bg-yellow-500 text-white rounded-md shadow hover:bg-yellow-600">
+                           ✏️ Editar CV
+                        </a>
                     </div>
                 </li>
             @endforeach

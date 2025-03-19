@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Cv;
+use App\Models\CV;
 use Illuminate\Support\Facades\Auth;
 
 class CvForm extends Component
@@ -11,30 +11,32 @@ class CvForm extends Component
     public $nombre;
     public $apellido;
     public $experiencia;
-    public $publico = false; // Cambié "privado" por "publico" para que coincida con la DB
+    public $publico = false; // Predeterminado como falso
 
     protected $rules = [
         'nombre' => 'required|string|max:255',
         'apellido' => 'required|string|max:255',
-        'experiencia' => 'required|string',
-        'publico' => 'boolean', // Cambiado de "privado" a "publico"
+        'experiencia' => 'nullable|string',
+        'publico' => 'boolean',
     ];
 
     public function save()
     {
         $this->validate();
 
-        Cv::create([
+        CV::create([
             'user_id' => Auth::id(),
             'nombre' => $this->nombre,
             'apellido' => $this->apellido,
             'experiencia' => $this->experiencia,
-            'publico' => $this->publico, // Cambiado de "privado" a "publico"
+            'publico' => $this->publico,
         ]);
 
-        session()->flash('message', 'Tu CV ha sido guardado exitosamente.');
+        // Emitir evento para actualizar Livewire y mostrar mensaje
+        $this->dispatch('cvSaved');
 
-        $this->reset(['nombre', 'apellido', 'experiencia', 'publico']);
+        // Limpiar los campos
+        $this->reset();
     }
 
     public function render()
@@ -42,4 +44,6 @@ class CvForm extends Component
         return view('livewire.cv-form');
     }
 }
+
+
 

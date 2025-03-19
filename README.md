@@ -90,11 +90,16 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 - **Verificar cambios en Git y subirlos**
   ```sh
-  git pull origin main
+  git status
   git add .
-  git commit -m "Actualización desde nueva PC"
+  git commit -m "Descripción de los cambios realizados"
+  git pull origin main --rebase
   git push origin main
   ```
+
+## Autor
+
+Este proyecto ha sido realizado por **Andy Solorzano - By TC4P**.
 
 ## License
 

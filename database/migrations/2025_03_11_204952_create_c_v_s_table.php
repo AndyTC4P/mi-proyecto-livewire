@@ -11,12 +11,19 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('c_v_s', function (Blueprint $table) {
+    Schema::create('cvs', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->string('nombre');
         $table->string('apellido');
-        $table->text('experiencia');
+        $table->string('titulo')->nullable();
+        $table->text('perfil')->nullable();
+        $table->string('imagen')->nullable();
+        $table->string('correo')->nullable();
+        $table->string('telefono')->nullable();
+        $table->string('direccion')->nullable();
+        $table->json('experiencia')->nullable(); // Se almacenará en formato JSON
+        $table->json('educacion')->nullable(); // Se almacenará en formato JSON
         $table->boolean('publico')->default(false);
         $table->timestamps();
     });

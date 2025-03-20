@@ -28,16 +28,16 @@ class CVController extends Controller
      * - Si el CV es público o pertenece al usuario, lo envía a la vista `cv.show`.
      */
     public function show($id)
-    {
-        $cv = CV::findOrFail($id); // Busca el CV por ID, si no existe lanza un error 404
+{
+    $cv = CV::with('user')->findOrFail($id); // Asegura que se carga la relación del usuario
 
-        // Si el CV es privado y no pertenece al usuario autenticado, redirige con un error
-        if (!$cv->publico && $cv->user_id !== Auth::id()) {
-            return redirect()->route('cv.index')->with('error', 'No tienes permiso para ver este CV.');
-        }
-
-        return view('cv.show', compact('cv')); // Muestra la vista con el CV
+    // Si el CV es privado y el usuario no es el dueño, mostrar error
+    if (!$cv->publico && (!Auth::check() || Auth::id() !== $cv->user_id)) {
+        return view('cv.not-available');
     }
+
+    return view('cv.show', compact('cv'));
+}
 
     /**
      * Mostrar el formulario de edición de un CV.

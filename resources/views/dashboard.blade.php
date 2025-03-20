@@ -10,15 +10,15 @@
             
             <!-- Pestañas -->
             <div class="flex border-b mb-4">
-                <button class="tab-btn px-4 py-2 text-lg font-semibold border-b-2 border-transparent focus:outline-none"
-                    onclick="showTab('crear-cv')">
-                    📝 Crear CV
-                </button>
-                <button class="tab-btn px-4 py-2 text-lg font-semibold border-b-2 border-transparent focus:outline-none"
-                    onclick="showTab('mis-cvs')">
-                    📄 Mis CVs
-                </button>
-            </div>
+    <button class="tab-btn px-4 py-2 text-lg font-semibold border-b-2 border-transparent focus:outline-none text-red-500 hover:text-red-700"
+        onclick="showTab('crear-cv')">
+        📝 Crear CV
+    </button>
+    <button class="tab-btn px-4 py-2 text-lg font-semibold border-b-2 border-transparent focus:outline-none text-blue-500 hover:text-blue-700"
+        onclick="showTab('mis-cvs')">
+        📄 Mis CVs
+    </button>
+</div>
 
             <!-- Contenido de las pestañas -->
             <div id="crear-cv" class="tab-content">

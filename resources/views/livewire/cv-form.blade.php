@@ -37,12 +37,32 @@
             @error('perfil') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Imagen de Perfil -->
-        <div>
-            <label class="block font-medium text-sm text-gray-700 dark:text-gray-300">Imagen de Perfil</label>
-            <input type="file" wire:model="imagen">
-            @error('imagen') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+      <!-- Imagen de Perfil -->
+<div>
+    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300">Imagen de Perfil</label>
+
+    <div class="flex items-center gap-3">
+        <label for="imagen" class="cursor-pointer px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
+            📷 Seleccionar Imagen
+        </label>
+        <input type="file" id="imagen" wire:model="imagen" class="hidden">
+    </div>
+
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        📌 Recomendación: **400x400 px**, formato **JPEG o PNG**, tamaño máximo **2MB**.
+    </p>
+
+    <!-- Mensaje de confirmación -->
+    <div x-data="{ show: false }"
+         x-show="show"
+         x-transition
+         x-init="@this.on('imagenSubida', () => { show = true; setTimeout(() => show = false, 3000); })"
+         class="mt-2 text-green-600 dark:text-green-400 text-sm">
+        ✅ Imagen subida correctamente.
+    </div>
+
+    @error('imagen') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+</div>
 
         <!-- Contacto -->
         <div>
@@ -99,19 +119,30 @@
             <label class="ml-2 text-gray-700 dark:text-gray-300">Hacer CV público</label>
         </div>
 
-        <!-- Botón con indicador de carga -->
-        <div class="flex justify-end">
-            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold shadow-md hover:bg-blue-600 transition flex items-center justify-center" wire:loading.attr="disabled">
-                🚀 Guardar CV
-            </button>
-        </div>
-
-        <!-- Mensaje de carga -->
-        <div wire:loading wire:target="save" class="mt-4 text-blue-500 font-semibold flex items-center">
-            ⏳ Guardando CV, por favor espera...
-        </div>
-    </form>
+       <!-- Botón de Guardar CV -->
+<div class="flex justify-end">
+    <button type="submit"
+        class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-6 py-2 rounded-md font-semibold shadow-md transition flex items-center justify-center"
+        wire:target="save"
+        wire:loading.attr="disabled">
+        🚀 Guardar CV
+    </button>
 </div>
+
+<!-- Mensaje de confirmación (Ahora aparece debajo del botón) -->
+<div x-data="{ show: false }"
+     x-show="show"
+     x-transition
+     x-init="@this.on('cvSaved', () => { show = true; setTimeout(() => show = false, 4000); })"
+     class="mt-4 p-3 bg-green-500 text-white font-semibold text-sm text-center rounded-md shadow">
+    ✅ CV guardado correctamente.
+</div>
+
+<!-- Mensaje de carga -->
+<div wire:loading wire:target="save" class="mt-4 text-blue-500 font-semibold flex items-center">
+    ⏳ Guardando CV, por favor espera...
+</div>
+
 
 
 

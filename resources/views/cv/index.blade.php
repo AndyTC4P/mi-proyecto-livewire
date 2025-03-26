@@ -54,6 +54,13 @@
                                    class="px-4 py-2 bg-yellow-500 text-white rounded-md shadow hover:bg-yellow-600">
                                     ✏️ Editar CV
                                 </a>
+                                <form action="{{ route('cv.destroy', $cv->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este CV?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
+        🗑 Eliminar
+    </button>
+</form>
                             </div>
                         </li>
                     @endforeach

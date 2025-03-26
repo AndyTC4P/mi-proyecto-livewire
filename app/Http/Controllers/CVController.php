@@ -83,5 +83,12 @@ public function update(Request $request, $id)
     return redirect()->route('cv.index')->with('message', '✅ CV actualizado correctamente.');
 }
 
+public function destroy($id)
+{
+    $cv = CV::where('user_id', auth()->id())->findOrFail($id);
+    $cv->delete();
+
+    return redirect()->route('cv.index')->with('message', '✅ CV eliminado correctamente.');
+}
 }
 

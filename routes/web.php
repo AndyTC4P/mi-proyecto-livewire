@@ -42,5 +42,7 @@ Route::put('/cv/{id}', [CVController::class, 'update'])
     ->middleware(['auth'])
     ->name('cv.update');
 
+    Route::delete('/cv/{id}', [CVController::class, 'destroy'])->name('cv.destroy');
+
 // Incluye las rutas de autenticación generadas por Laravel Breeze/Jetstream
 require __DIR__.'/auth.php';

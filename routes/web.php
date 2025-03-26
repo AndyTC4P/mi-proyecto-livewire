@@ -38,8 +38,8 @@ Route::get('/cv/{id}/edit', [CVController::class, 'edit'])
     ->name('cv.edit');
 
 // Actualiza un CV con la información editada
-Route::post('/cv/{id}/update', [CVController::class, 'update'])
-    ->middleware(['auth']) // Solo el usuario dueño puede actualizarlo
+Route::put('/cv/{id}', [CVController::class, 'update'])
+    ->middleware(['auth'])
     ->name('cv.update');
 
 // Incluye las rutas de autenticación generadas por Laravel Breeze/Jetstream

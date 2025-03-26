@@ -10,12 +10,16 @@ class CvList extends Component
 {
     public $cvs;
 
+    protected $listeners = [
+        'cvCreated' => 'reloadCvs',
+        'eliminarCv' => 'eliminarCv',
+        'confirmarEliminacion' => 'confirmarEliminacion', 
+    ];
+
     public function mount()
     {
         $this->cvs = CV::where('user_id', Auth::id())->latest()->get();
     }
-
-    protected $listeners = ['cvCreated' => 'reloadCvs'];
 
     public function reloadCvs()
     {
@@ -35,11 +39,28 @@ class CvList extends Component
         $this->dispatch('copiar-enlace', $link);
     }
 
+    public function eliminarCv($id)
+    {
+        $cv = CV::where('user_id', auth()->id())->findOrFail($id);
+        $cv->delete();
+    
+        // Actualiza la lista
+        $this->reloadCvs();
+    
+        session()->flash('message', '✅ CV eliminado correctamente.');
+    }
+    public function confirmarEliminacion($id)
+{
+    $this->dispatch('confirmarEliminacion', $id);
+}
+
     public function render()
     {
         return view('livewire.cv-list');
     }
 }
+
+
 
 
 

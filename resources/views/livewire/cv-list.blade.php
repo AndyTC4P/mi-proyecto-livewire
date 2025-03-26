@@ -5,6 +5,12 @@
         </div>
     @endif
 
+    @if (session('message'))
+        <div class="p-4 mb-4 text-green-800 bg-green-200 rounded-lg">
+            {{ session('message') }}
+        </div>
+    @endif
+
     @if ($cvs->isEmpty())
         <p class="text-gray-500 dark:text-gray-400">Aún no has creado ningún CV.</p>
     @else
@@ -39,7 +45,16 @@
                         <a href="{{ route('cv.edit', $cv->id) }}"
                            class="px-4 py-2 bg-yellow-500 text-white rounded-md shadow hover:bg-yellow-600">
                             ✏️ Editar CV
+                        </a><a href="{{ route('cv.edit', $cv->id) }}"
+                           class="px-4 py-2 bg-yellow-500 text-white rounded-md shadow hover:bg-yellow-600">
+                            ✏️Prueba
                         </a>
+
+                        <!-- Botón Eliminar con confirmación -->
+                        <button onclick="confirm('¿Estás seguro de que deseas eliminar este CV?') && @this.call('eliminarCv', {{ $cv->id }})"
+                                class="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
+                            🗑 Eliminar
+                        </button>
                     </div>
                 </li>
             @endforeach
@@ -56,5 +71,7 @@
         });
     </script>
 </div>
+
+
 
 

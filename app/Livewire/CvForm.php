@@ -58,7 +58,7 @@ class CvForm extends Component
             $this->correo = $cv->correo;
             $this->telefono = $cv->telefono;
             $this->direccion = $cv->direccion;
-            $this->publico = $cv->publico;
+            $this->publico = (bool) $cv->publico;
     
             $this->experiencia = is_array($cv->experiencia)
                 ? $cv->experiencia

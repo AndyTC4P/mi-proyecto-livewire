@@ -35,11 +35,27 @@
                 </a>
 
                 @if($cv->publico)
-                    <button wire:click="copiarEnlace({{ $cv->id }})"
-                            class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
-                        📋 Copiar Enlace
-                    </button>
-                @endif
+    <div x-data="{ show: false }" class="relative">
+        <button
+            @click="
+                navigator.clipboard.writeText('{{ route('cv.show', $cv->id) }}');
+                show = true;
+                setTimeout(() => show = false, 3000);
+            "
+            class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600"
+        >
+            📋 Copiar Enlace
+        </button>
+
+        <span
+            x-show="show"
+            x-transition
+            class="absolute left-1/2 -translate-x-1/2 mt-2 bg-green-600 text-white text-xs rounded px-2 py-1 shadow"
+        >
+            Enlace copiado
+        </span>
+    </div>
+@endif
 
                 <a href="{{ route('cv.edit', $cv->id) }}"
                    class="px-4 py-2 bg-yellow-500 text-white rounded-md shadow hover:bg-yellow-600">
@@ -55,16 +71,6 @@
 </ul>
 
     @endif
-
-    <script>
-        Livewire.on('copiar-enlace', link => {
-            navigator.clipboard.writeText(link).then(() => {
-                alert('✅ Enlace copiado al portapapeles: ' + link);
-            }).catch(() => {
-                alert('❌ No se pudo copiar el enlace.');
-            });
-        });
-    </script>
 </div>
 
 

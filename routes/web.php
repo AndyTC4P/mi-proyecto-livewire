@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CVController;
+use Illuminate\Support\Facades\Auth;
 
 // Página de bienvenida
 Route::view('/', 'welcome');
 
 // Página principal del usuario autenticado (Menú Principal)
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified']) // Requiere que el usuario esté autenticado y verificado
+    ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 // Página del perfil del usuario
@@ -46,3 +47,10 @@ Route::put('/cv/{id}', [CVController::class, 'update'])
 
 // Incluye las rutas de autenticación generadas por Laravel Breeze/Jetstream
 require __DIR__.'/auth.php';
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');

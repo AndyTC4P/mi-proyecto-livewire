@@ -13,14 +13,30 @@ class CV extends Model
     protected $table = 'cvs';  // Verifica que sea el nombre correcto
 
     protected $fillable = [
-        'user_id', 'nombre', 'apellido', 'titulo', 'perfil', 'imagen',
-        'correo', 'telefono', 'direccion', 'experiencia', 'educacion', 'publico'
+        'user_id',
+        'nombre',
+        'apellido',
+        'titulo',
+        'perfil',
+        'imagen',
+        'correo',
+        'telefono',
+        'direccion',
+        'pais',
+        'ciudad',
+        'experiencia',
+        'educacion',
+        'habilidades',
+        'idiomas',
+        'publico',
     ];
     
     // Convertir experiencia y educación a array automáticamente
     protected $casts = [
         'experiencia' => 'array',
         'educacion' => 'array',
+        'habilidades' => 'array',
+        'idiomas' => 'array',
     ];
     
     /**

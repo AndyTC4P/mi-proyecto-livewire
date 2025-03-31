@@ -5,11 +5,46 @@ Este archivo documenta los cambios realizados por versión en el proyecto [CV Bo
 ---
 ## [v1.1.2] - 2025-03-27
 
--Se actualizó el archivo .htaccess para prevenir problemas de redirección almacenados en caché por navegadores que visitaron el dominio antes del despliegue del sistema Laravel.
+🛠 Cambios técnicos
+Se actualizó el archivo .htaccess para prevenir problemas de redirección almacenados en caché por navegadores que visitaron el dominio antes del despliegue del sistema Laravel.
 
--Se forzaron cabeceras Cache-Control para evitar que versiones anteriores del sitio redirijan incorrectamente al usuario.
+Se forzaron cabeceras Cache-Control para evitar que versiones anteriores del sitio redirijan incorrectamente al usuario.
 
+Se actualizó el modelo CV (App\Models\CV) para incluir los nuevos campos en $fillable y $casts.
 
+Se crearon nuevas migraciones para agregar los campos pais, ciudad, habilidades e idiomas a la tabla cvs.
+
+Se ajustó el componente CvForm para cargar y guardar correctamente todos los nuevos campos.
+
+✅ Mejoras en la interfaz
+Se mejoró el diseño de la vista Mis CVs en dispositivos móviles, asegurando que los botones no se desborden y se mantengan alineados verticalmente.
+
+En la vista pública del CV:
+
+Se agregaron los campos de correo electrónico y número de teléfono justo debajo del título profesional.
+
+Se mostraron con un estilo limpio y profesional (sin íconos).
+
+✨ Nuevas funcionalidades
+Se agregaron los campos País y Ciudad al formulario de CV.
+
+Se añadió una sección dinámica para ingresar múltiples Habilidades.
+
+Se implementó la selección múltiple de Idiomas conocidos.
+
+En la sección de Experiencia Laboral, se incorporó el campo Tareas, Responsabilidades y Logros (máx. 500 caracteres por entrada).
+
+La vista de edición del CV (edit.blade.php) ahora precarga correctamente todos los campos, incluidos los nuevos.
+
+La vista de visualización del CV (show.blade.php) ahora muestra:
+
+Información de contacto y ubicación.
+
+Lista de habilidades.
+
+Idiomas seleccionados.
+
+Descripción de tareas en cada experiencia laboral.
 
 ## [v1.1.0] - 2025-03-27
 

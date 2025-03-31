@@ -26,6 +26,10 @@ return new class extends Migration
         $table->json('educacion')->nullable(); // Se almacenará en formato JSON
         $table->boolean('publico')->default(false);
         $table->timestamps();
+        $table->string('pais')->nullable();
+$table->string('ciudad')->nullable();
+$table->json('habilidades')->nullable();
+$table->json('idiomas')->nullable();
     });
 }
 

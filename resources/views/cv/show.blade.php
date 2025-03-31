@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout> 
     <x-slot name="header">
         <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">📄 Perfil Profesional</h2>
     </x-slot>
@@ -31,6 +31,10 @@
                         <p class="text-base text-gray-400">Teléfono: {{ $cv->telefono }}</p>
                     @endif
 
+                    @if($cv->pais || $cv->ciudad)
+                        <p class="text-base text-gray-400">Ubicación: {{ $cv->ciudad }}{{ $cv->ciudad && $cv->pais ? ', ' : '' }}{{ $cv->pais }}</p>
+                    @endif
+
                     <span class="inline-block mt-2 px-3 py-1 text-sm font-medium 
                         {{ $cv->publico ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }} rounded-md">
                         {{ $cv->publico ? 'CV Público' : 'CV Privado' }}
@@ -48,17 +52,44 @@
             @if ($cv->experiencia)
                 <div class="mt-6">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Experiencia Laboral</h3>
-                    <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
+                    <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-4">
                         @foreach (json_decode($cv->experiencia, true) as $exp)
                             <li>
-                                <strong>{{ $exp['empresa'] }}</strong> - {{ $exp['puesto'] }}
-                                <br>
+                                <strong>{{ $exp['empresa'] }}</strong> - {{ $exp['puesto'] }}<br>
                                 <small class="text-sm text-gray-500">
                                     {{ $exp['inicio'] }} al {{ $exp['fin'] ?? 'Actualidad' }}
                                 </small>
+                                @if(!empty($exp['tareas']))
+                                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                                        <strong class="block text-gray-600 dark:text-gray-400">Tareas, Responsabilidades y Logros:</strong>
+                                        {{ $exp['tareas'] }}
+                                    </p>
+                                @endif
                             </li>
                         @endforeach
                     </ul>
+                </div>
+            @endif
+
+            {{-- Habilidades --}}
+            @if (!empty($cv->habilidades) && is_array(json_decode($cv->habilidades, true)))
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Habilidades</h3>
+                    <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
+                        @foreach (json_decode($cv->habilidades, true) as $habilidad)
+                            <li>{{ $habilidad }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            {{-- Idiomas --}}
+            @if (!empty($cv->idiomas))
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Idiomas</h3>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        {{ implode(', ', json_decode($cv->idiomas, true)) }}
+                    </p>
                 </div>
             @endif
 
@@ -69,8 +100,7 @@
                     <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
                         @foreach (json_decode($cv->educacion, true) as $edu)
                             <li>
-                                <strong>{{ $edu['universidad'] }}</strong> - {{ $edu['carrera'] }}
-                                <br>
+                                <strong>{{ $edu['universidad'] }}</strong> - {{ $edu['carrera'] }}<br>
                                 <small class="text-sm text-gray-500">
                                     {{ $edu['inicio'] }} al {{ $edu['fin'] ?? 'Actualidad' }}
                                 </small>

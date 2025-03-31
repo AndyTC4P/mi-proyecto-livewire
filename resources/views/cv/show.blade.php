@@ -22,6 +22,15 @@
                         {{ $cv->nombre }} {{ $cv->apellido }}
                     </h1>
                     <p class="text-lg text-gray-500 dark:text-gray-300">{{ $cv->titulo }}</p>
+
+                    @if($cv->correo)
+                        <p class="text-base text-gray-400 mt-1">Correo: {{ $cv->correo }}</p>
+                    @endif
+
+                    @if($cv->telefono)
+                        <p class="text-base text-gray-400">Teléfono: {{ $cv->telefono }}</p>
+                    @endif
+
                     <span class="inline-block mt-2 px-3 py-1 text-sm font-medium 
                         {{ $cv->publico ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }} rounded-md">
                         {{ $cv->publico ? 'CV Público' : 'CV Privado' }}
@@ -81,6 +90,7 @@
         </div>
     </div>
 </x-app-layout>
+
 
 
 

@@ -3,6 +3,13 @@
 Este archivo documenta los cambios realizados por versión en el proyecto [CV Book](https://cvbook.online).
 
 ---
+## [v1.1.2] - 2025-03-27
+
+-Se actualizó el archivo .htaccess para prevenir problemas de redirección almacenados en caché por navegadores que visitaron el dominio antes del despliegue del sistema Laravel.
+
+-Se forzaron cabeceras Cache-Control para evitar que versiones anteriores del sitio redirijan incorrectamente al usuario.
+
+
 
 ## [v1.1.0] - 2025-03-27
 
